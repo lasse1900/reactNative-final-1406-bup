@@ -25,7 +25,7 @@ const AppBar = () => (
         Repositories
       </Link>
       <Link to='/signin' component={AppBarTab}>
-        Sign in (demo scrolling)
+        Sign in
       </Link>
     </ScrollView>
   </View>
