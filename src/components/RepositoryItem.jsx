@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
 });
 
 const RepositoryItem = ({ list }) => {
+  console.log(list)
   return (
     <View style={styles.flexContainer}>
       <View style={styles.flexContainerTop}>
