@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   tab: {
-    color: theme.colors.appBarText,
+    color: theme.colors.contrastTextColor,
     fontSize: 24,
     padding: 15
   },
