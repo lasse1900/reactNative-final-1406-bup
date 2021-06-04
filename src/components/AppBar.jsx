@@ -1,11 +1,11 @@
 import React from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
-import { Link } from 'react-router-native';
 import Constants from "expo-constants";
 import AppBarTab from './AppBarTab';
 import theme from "../theme";
 import { useQuery } from '@apollo/react-hooks';
 import { AUTHORIZED_USER } from '../graphql/queries';
+import useSignOut from '../hooks/useSignOut';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,9 +14,12 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     backgroundColor: theme.appBar.backgroundColor
   },
-  tabsContainer: {
-    display: 'flex',
-    flexDirection: 'row'
+  scrollView: {
+    marginHorizontal: 0,
+  },
+  text: {
+    color: 'white',
+    marginRight: 10,
   }
 });
 
@@ -26,18 +29,17 @@ const AppBar = () => {
   });
 
   let authorizedUser = data ? data.authorizedUser : null;
+  const signOut = useSignOut();
 
   console.log('from ---> AppBar - authorizedUser', authorizedUser);
 
+
   return (
     <View style={styles.container}>
-      <ScrollView horizontal style={styles.tabsContainer}>
-        <Link to='/' component={AppBarTab}>
-          Repositories
-      </Link>
-        <Link to='/signin' component={AppBarTab}>
-          Sign in
-      </Link>
+      <ScrollView style={styles.tabsContainer} horizontal >
+        <AppBarTab link='/' label='Repositories' />
+        {!authorizedUser && <AppBarTab link='/signIn' label='Sign in' />}
+        {authorizedUser && <AppBarTab label='Sign out' onPress={() => signOut()} />}
       </ScrollView>
     </View>
   );
