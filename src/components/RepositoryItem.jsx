@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import theme from '../theme';
+import numeral from 'numeral';
 
 const styles = StyleSheet.create({
   flexContainer: {
@@ -53,37 +54,36 @@ const styles = StyleSheet.create({
   }
 });
 
-const RepositoryItem = ({ list }) => {
-  // console.log(list);
+const RepositoryItem = ({ item }) => {
   return (
     <View style={styles.flexContainer}>
       <View style={styles.flexContainerTop}>
-        <Image style={styles.image} source={{ uri: list.item.ownerAvatarUrl }} />
+        <Image style={styles.image} source={{ uri: item.ownerAvatarUrl }} />
         <View style={styles.flexContainerImage}>
-          <Text style={styles.nameText}>{list.item.fullName}</Text>
-          <Text>{list.item.description}</Text>
-          <Text style={styles.languageText}>{list.item.language}</Text>
+          <Text testID='fullName' style={styles.nameText}>{item.fullName}</Text>
+          <Text testID='repoDescription'>{item.description}</Text>
+          <Text testID='repoLanguage' style={styles.languageText}>{item.language}</Text>
         </View>
       </View>
       <View style={styles.flexContainerLow}>
         <View style={styles.detailsStyle}>
-          <Text style={styles.statisticText}>
-            {(list.item.stargazersCount / 1000).toFixed(1)}{'k'}
+          <Text testID='stargazersCount' style={styles.statisticText}>
+            {numeral(item.stargazersCount).format('0.0a')}
           </Text>
           <Text>{'Stars'}</Text>
         </View>
         <View style={styles.detailsStyle}>
-          <Text style={styles.statisticText}>
-            {(list.item.forksCount / 1000).toFixed(1)}{'k'}
+          <Text testID='forksCount' style={styles.statisticText}>
+            {numeral(item.forksCount).format('0.0a')}
           </Text>
           <Text>{'Forks'}</Text>
         </View>
-        <View style={styles.detailsStyle}>
-          <Text style={styles.statisticText}>{list.item.reviewCount}</Text>
+        <View testID='reviewCount' style={styles.detailsStyle}>
+          <Text style={styles.statisticText}>{item.reviewCount}</Text>
           <Text>{'Reviews'}</Text>
         </View>
-        <View style={styles.detailsStyle}>
-          <Text style={styles.statisticText}>{list.item.ratingAverage}</Text>
+        <View testID='ratingAverage' style={styles.detailsStyle}>
+          <Text style={styles.statisticText}>{item.ratingAverage}</Text>
           <Text>{'Rating'}</Text>
         </View>
       </View>
