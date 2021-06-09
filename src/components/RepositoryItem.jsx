@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Linking } from 'react-native';
+import { StyleSheet, Text, View, Image, Linking, TouchableOpacity } from 'react-native';
 import theme from '../theme';
 import numeral from 'numeral';
 
@@ -88,7 +88,7 @@ const RepositoryItem = ({ item, singleView }) => {
         </View>
       </View>
       {singleView &&
-        <View style={styles.flexContainerC}>
+        <View style={styles.flexContainer}>
           <TouchableOpacity onPress={() => Linking.openURL(item.url)}>
             <Text style={styles.languageText}>Open in GitHub</Text>
           </TouchableOpacity>
