@@ -1,19 +1,36 @@
 import { gql } from 'apollo-boost';
 
 export const GET_REPOSITORIES = gql`
-  query GET_REPOSITORIES {
-    repositories {
+  query repositories(
+    $after: String
+    $first: Int
+    $orderDirection: OrderDirection
+    $orderBy: AllRepositoriesOrderBy
+    $searchKeyword: String
+    $ownerName: String
+  ) {
+    repositories(
+      after: $after
+      first: $first
+      orderDirection: $orderDirection
+      orderBy: $orderBy
+      searchKeyword: $searchKeyword
+      ownerName: $ownerName
+    ) {
       edges {
         node {
-          id
-          ownerAvatarUrl
-          fullName
+          createdAt
           description
-          language
-          stargazersCount
           forksCount
-          reviewCount
+          fullName
+          id
+          language
+          name
+          ownerAvatarUrl
+          ownerName
           ratingAverage
+          reviewCount
+          stargazersCount
         }
       }
     }

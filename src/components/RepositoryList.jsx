@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FlatList, View, StyleSheet, TouchableOpacity } from 'react-native';
+import RNPickerSelect from "react-native-picker-select";
 import useRepositories from '../hooks/useRepositories';
 
 import RepositoryItem from './RepositoryItem';
@@ -11,9 +12,26 @@ const styles = StyleSheet.create({
   },
 });
 
-export const RepositoryListContainer = ({ repositories }) => {
+const Dropdown = ({ setSortBy }) => {
+  return (
+    <RNPickerSelect
+      placeholder={{
+        label: "Sort repositories...",
+        value: null,
+      }}
+      onValueChange={(value) => setSortBy(value)}
+      items={[
+        { label: "Latest repositories", value: "CREATED_AT" },
+        { label: "Highest rated repositories", value: "DESC" },
+        { label: "Lowest rated repositories", value: "ASC" },
+      ]}
+    />
+  );
+};
+
+export const RepositoryListContainer = ({ repositories, setSortBy }) => {
   const history = useHistory();
-  const repositoryNodes = repositories.edges
+  const repositoryNodes = repositories
     ? repositories.edges.map(edge => edge.node)
     : [];
 
@@ -25,6 +43,7 @@ export const RepositoryListContainer = ({ repositories }) => {
 
   return (
     <FlatList
+      ListHeaderComponent={() => <Dropdown setSortBy={setSortBy} />}
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
       renderItem={({ item }) =>
@@ -37,9 +56,11 @@ export const RepositoryListContainer = ({ repositories }) => {
 };
 
 const RepositoryList = () => {
-  const { repositories } = useRepositories();
+  const [sortBy, setSortBy] = useState("");
+  console.log(sortBy);
+  const { repositories } = useRepositories(sortBy);
 
-  return <RepositoryListContainer repositories={repositories} />;
+  return <RepositoryListContainer repositories={repositories} setSortBy={setSortBy} />;
 };
 
 export default RepositoryList;
