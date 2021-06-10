@@ -1,23 +1,18 @@
-import { useState } from "react";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from '@apollo/react-hooks';
+import { GET_REPOSITORIES } from '../graphql/queries';
 
-import { GET_REPOSITORIES } from "../graphql/queries";
-import parseSortBy from "../utils/parseSortBy";
+const useRepositories = (listOrder, debouncedText) => {
+  const [orderBy, orderDirection] = listOrder.split('/');
+  const searchKeyword = debouncedText
+    ? debouncedText
+    : '';
 
-const useRepositories = (sortBy) => {
-  const [repositories, setRepositories] = useState();
-
-  const sortVariables = parseSortBy(sortBy);
-
-  const { error, loading } = useQuery(GET_REPOSITORIES, {
-    variables: sortVariables,
-    fetchPolicy: "cache-and-network",
-    onCompleted: (data) => {
-      setRepositories(data.repositories);
-    },
+  const { data, ...result } = useQuery(GET_REPOSITORIES, {
+    fetchPolicy: 'cache-and-network',
+    variables: { orderBy, orderDirection, searchKeyword }
   });
 
-  return { repositories, loading, error };
+  return { repositories: data ? data.repositories : undefined, ...result };
 };
 
 export default useRepositories;

@@ -13300,6 +13300,11 @@
     "punycode" "1.3.2"
     "querystring" "0.2.0"
 
+"use-debounce@^6.0.1":
+  "integrity" "sha512-kpvIxpa0vOLz/2I2sfNJ72mUeaT2CMNCu5BT1f2HkV9qZK27UVSOFf1sSSu+wjJE4TcR2VTXS2SM569+m3TN7Q=="
+  "resolved" "https://registry.npmjs.org/use-debounce/-/use-debounce-6.0.1.tgz"
+  "version" "6.0.1"
+
 "use-subscription@^1.0.0":
   "integrity" "sha512-Xv2a1P/yReAjAbhylMfFplFKj9GssgTwN7RlcTxBujFQcloStWNDQdc4g4NRWH9xS4i/FDk04vQBptAXoF3VcA=="
   "resolved" "https://registry.npmjs.org/use-subscription/-/use-subscription-1.5.1.tgz"
