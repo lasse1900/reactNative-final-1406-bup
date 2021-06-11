@@ -33,7 +33,6 @@ const AppBar = () => {
 
   console.log('from ---> AppBar - authorizedUser', authorizedUser);
 
-
   return (
     <View style={styles.container}>
       <ScrollView style={styles.tabsContainer} horizontal >
@@ -41,6 +40,7 @@ const AppBar = () => {
         {!authorizedUser && <AppBarTab link='/signIn' label='Sign in' />}
         {!authorizedUser && <AppBarTab link='/signUp' label='Sign up' />}
         {authorizedUser && <AppBarTab link='/createReview' label='Create a review' />}
+        {authorizedUser && <AppBarTab link='/myReviews' label='My reviews' />}
         {authorizedUser && <AppBarTab label='Sign out' onPress={() => signOut()} />}
       </ScrollView>
     </View>
